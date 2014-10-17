@@ -1,32 +1,33 @@
 /*
 SPOJ Problem Set (classical)
-8002. Horrible Queries
-Problem code: HORRIBLE
-World is getting more evil and it's getting tougher to get into the Evil League of Evil. Since the legendary Bad Horse has retired, now you have to correctly answer the evil questions of Dr. Horrible, who has a PhD in horribleness (but not in Computer Science). You are given an array of N elements, which are initially all 0. After that you will be given C commands. They are -
-
-* 0 p q v - you have to add v to all numbers in the range of p to q (inclusive), where p and q are two indexes of the array.
-* 1 p q - output a line containing a single integer which is the sum of all the array elements between p and q (inclusive)
+6256. Inversion Count
+Problem code: INVCNT
+Let A[0...n - 1] be an array of n distinct positive integers. If i < j and A[i] > A[j] then the pair (i, j) is called an inversion of A. Given n and an array A your task is to find the number of inversions of A.
 
 Input
-In the first line you'll be given T, number of test cases.
-Each test case will start with N (N<=100 000) and C (C<=100 000). After that you'll be given C commands in the format as mentioned above. 1 <= p,q <= N and 1 <= v <= 10^7.
+The first line contains t, the number of testcases followed by a blank space. Each of the t tests start with a number n (n <= 200000). Then n + 1 lines follow. In the ith line a number A[i - 1] is given (A[i - 1] <= 10^7). The (n + 1)th line is a blank space.
 
 Output
-Print the answers of the queries.
+For every test output one line giving the number of inversions of A.
+
 Example
 Input:
-1
-8 6
-0 2 4 26
-0 4 8 80
-0 4 5 20
-1 8 8 
-0 5 7 14
-1 4 8
+2
 
-Output:
-80
-508
+3
+3
+1
+2
+
+5
+2
+3
+8
+6
+1
+Output: 
+2
+5
 */
 
 #include <algorithm>
