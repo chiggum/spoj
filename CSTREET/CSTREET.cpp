@@ -108,7 +108,94 @@ typedef unsigned long long u64;
 inline int toInt(string s) {int i;stringstream (s)>>i;return i;}
 inline string toString(int i) {string s;stringstream ss;ss<<i;ss>>s;return s;}
 
-int main() {
+struct Edge{
+	long left, right, len;
+};
 
+bool func(Edge a, Edge b) {
+	return (a.len < b.len);
+}
+
+class Dis_DS{
+	private:
+		long n;
+		long *id, *sz;
+	public:
+		Dis_DS(long x) {
+			n = x;
+			id = new long[n];
+			sz = new long[n];
+			long i;
+			REP(i, n) {
+				id[i] = i;
+				sz[i] = 1;
+			}
+		}
+		long findset(long x_) {
+			long x = x_;
+			while(id[x]!=x) {
+				x = id[x];
+			}
+			long p = x;
+			while(p!=x) {
+				long newp = p;
+				p = id[p];
+				id[p] = x;
+				p=newp;
+			}
+			return x;
+		}
+		void unite(long x, long y) {
+			long ax = findset(x);
+			long ay = findset(y);
+			if(ax==ay)
+				return;
+			if(sz[ax]>sz[ay]) {
+				id[ay] = ax;
+				sz[ax] += sz[ay];
+			} else {
+				id[ax] = ay;
+				sz[ay]+=sz[ax];
+			}
+			n--;
+		}
+		bool isConnected(long a, long b) {
+			return (findset(a) == findset(b));
+		}
+		long count() {
+			return n;
+		}
+};
+
+int main() {
+	long t, i;
+	scanl(t);
+	REP(i, t) {
+		long p, n, m;
+		scanl(p);
+		scanl(n);
+		scanl(m);
+		long j;
+		Edge *edge = new Edge[m];
+		Dis_DS *vert = new Dis_DS(n);
+		REP(j, m) {
+			long a, b, c;
+			scanl(a);
+			scanl(b);
+			scanl(c);
+			edge[j].left = a-1;
+			edge[j].right = b-1;
+			edge[j].len = c*p;
+		}
+		sort (edge, edge+m, func);
+		long ans = 0;
+		REP(j, m) {
+			if(!vert->isConnected(edge[j].left, edge[j].right)) {
+				ans+=edge[j].len;
+				vert->unite(edge[j].left, edge[j].right);
+			}
+		}
+		printf("%ld\n", ans);
+	}
     return 0;
 }
